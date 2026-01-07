@@ -2,7 +2,7 @@
 {% block bank %}active{% endblock %}
 {% block bank_list %}active{% endblock %}
 {% block content %}
-{% load staticfiles %}
+{% load static %}
 <div class="content-wrapper">
     <section class="content-header">
         <a href="{% url 'bank:debit' pk=bank.id %}"><button type="button" value="Create" class="btn btn-success">Debit</button></a>
