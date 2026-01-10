@@ -102,5 +102,5 @@ class DeleteExpense(DeleteView):
         return super(
             DeleteExpense, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
-        return self.post(request, *args, **kwargs)
+    # def get(self, request, *args, **kwargs):
+    #     return self.post(request, *args, **kwargs)

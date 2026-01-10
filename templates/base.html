@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Abu Abeer al Gawabry Trading </title>
+    <title> Shaal Beej </title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
@@ -25,9 +25,9 @@
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>Trading</b></span>
+            <span class="logo-mini"><b> SB </b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>AAAG Trading</b></span>
+            <span class="logo-lg"><b> Shaal Beej </b></span>
         </a>
 
         <!-- Header Navbar: style can be found in header.less -->
@@ -37,12 +37,12 @@
                 <span class="sr-only">Toggle navigation</span>
             </a>
             <div  class="header">
-                <span style="color:white;"><h4><b> Abu Abeer Al Gawabry Trading</b></h4></span>
+                <span style="color:white;"><h4><b> Shaal Beej & Zarai Markaz </b></h4></span>
             </div>
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                   <!--  <li class="dropdown notifications-menu">
+                    <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Notifications <i class="fa fa-bell-o"></i>
                             <span class="label label-danger notification_count">10</span>
@@ -65,7 +65,7 @@
                             </li>
                             <li class="footer"><a href="{% url 'product:list' %}">View all</a></li>
                         </ul>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
 
@@ -164,6 +164,29 @@
                         <li class="{% block monthly_reports %}{% endblock %}"><a href="{% url 'common:reports' %}"><i class="fa fa-circle-o"></i> <span>Monthly Reports</span></a></li>
                     </ul>
                 </li>
+
+                <li class="header">Companies</li>
+                <li class="treeview {% block company %}{% endblock %}">
+
+  <a href="#">
+    <i class="fa fa-building"></i> <span>Companies</span>
+    <span class="pull-right-container">
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
+  </a>
+  <ul class="treeview-menu">
+    <li>
+      <a href="{% url 'company:add' %}">
+        <i class="fa fa-circle-o"></i> Add Company
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'company:list' %}">
+        <i class="fa fa-circle-o"></i> Company List
+      </a>
+    </li>
+  </ul>
+</li>
                 <li class="header">User</li>
                  <li>
                     <a href="{% url 'common:logout' %}"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
@@ -183,7 +206,7 @@
         <div class="pull-right hidden-xs">
             <b>Version</b> 2.4.18
         </div>
-        <strong>Copyright &copy; 2022 <a href="#">Abu Abeer al Gawabry Trading</a>.</strong> All rights
+        <strong>Copyright &copy; 2026 <a href="#">Shaal Beej & Zarai Markaz</a>.</strong> All rights
         reserved.
     </footer>
 </div>

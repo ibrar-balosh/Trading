@@ -202,7 +202,7 @@ class StockInDetail(ListView):
 
         if not queryset:
             queryset = self.model.objects.filter(
-                product__id=self.kwargs.get('pk')).order_by('-date')
+                product__id=self.kwargs.get('pk')).order_by('-dated_order')
 
         if self.request.GET.get('date'):
             queryset = queryset.filter(

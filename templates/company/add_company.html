@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block company %}active{% endblock %}
+{% block company_create %}active{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'common:index' %}"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Add Company</li>
+        </ol>
+    </section>
+    <br>
+    <section class="content">
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="text-center"><b>Add Company</b></h4>
+                    </div>
+                    <div class="box-body">
+                        <form action="{% url 'company:add' %}" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4 pull-left form-group">
+                                    <label class="form-control-label">Company Name <span style="color:red">*</span></label>
+                                    <input type="text" name="company_name" class="form-control form-control-alternative" placeholder="Company Name" required>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="form-control-label">Contact Person <span style="color:red">*</span></label>
+                                    <input type="text" name="contact_person" class="form-control form-control-alternative" placeholder="Contact Person" required>
+                                </div>
+                                <div class="col-md-4 pull-right form-group">
+                                    <label class="form-control-label">CNIC <span style="color:red">*</span></label>
+                                    <input type="text" name="cnic" class="form-control form-control-alternative" placeholder="CNIC" minlength="13" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 pull-left form-group">
+                                    <label class="form-control-label">City <span style="color:red">*</span></label>
+                                    <input type="text" name="city" class="form-control form-control-alternative" placeholder="City" required>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label class="form-control-label">Mobile <span style="color:red">*</span></label>
+                                    <input type="text" name="mobile" class="form-control form-control-alternative" placeholder="Enter 10 digits of your Mobile N0." minlength="10" required>
+                                </div>
+                                <div class="col-md-4 pull-right form-group">
+                                    <label class="form-control-label">Alternate Mobile <span style="color:red">*</span></label>
+                                    <input type="text" name="alternate_mobile" class="form-control form-control-alternative" placeholder="Alternate Mobile" minlength="10">
+                                </div>
+                            </div>
+                            <!-- <div class="row">
+                                <div class="col-md-6 pull-left form-group">
+                                    <label class="form-control-label">Resident <span style="color:red">*</span></label>
+                                    <input type="text" name="resident" class="form-control form-control-alternative" placeholder="Resident" required>
+                                </div> -->
+                                <!-- <div class="col-md-6 pull-right form-group">
+                                    <label class="form-control-label">Complete Address <span style="color:red">*</span></label>
+                                    <input type="text" name="address" class="form-control form-control-alternative" placeholder="Complete Address" required>
+                                </div>
+                            </div> -->
+                            <div class="row">
+                                <div class="col-md-2 pull-left form-group">
+                                    <label class="form-control-label"></label>
+                                    <button type="submit" value="Create" class="btn btn-primary form-control">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
