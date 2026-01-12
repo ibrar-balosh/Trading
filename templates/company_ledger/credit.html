@@ -20,7 +20,7 @@
                         <h3 class="text-center"><b>{{ company.name|title }} |</b> <small><b>Credit Amount</b></small></h3>
                     </div>
                     <div class="box-body">
-                        <form action="{% url 'company:ledger_debit' pk=company.id %}" method="post" autocomplete="off">
+                        <form action="{% url 'company:ledger_credit' pk=company.id %}" method="post" autocomplete="off">
                             {% csrf_token %}
                             <input type="hidden" name="company" value="{{ company.id }}">
                             <div class="row">

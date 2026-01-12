@@ -1,20 +1,21 @@
-from django.views.generic import ListView, FormView, UpdateView
-from django.http import HttpResponseRedirect, Http404
-from django.urls import reverse
+from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse_lazy
 from company.models import Company, CompanyLedger
 from company.forms import CompanyForm, CompanyLedgerForm
+from django.contrib import messages
 
-
-class AddCompany(FormView):
-    template_name = 'company/add_company.html'
+class AddCompany(CreateView):
+    model = Company
     form_class = CompanyForm
+    template_name = 'company/add_company.html'
+    success_url = reverse_lazy('company:list')
 
     def form_valid(self, form):
-        self.object = form.save()
-        return HttpResponseRedirect(self.get_success_url())
+        messages.success(self.request, "Company added successfully")
+        return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse('company:list')
+    # def get_success_url(self):
+    #     return reverse('company:list')
 
 
 class CompanyList(ListView):
@@ -23,7 +24,7 @@ class CompanyList(ListView):
     paginate_by = 100
     ordering = '-id'
 
-def get_queryset(self):
+    def get_queryset(self):     
         queryset = Company.objects.all().order_by('-id')
 
         company_name = self.request.GET.get('company_name')
@@ -42,10 +43,11 @@ class UpdateCompany(UpdateView):
     model = Company
     form_class = CompanyForm
     template_name = 'company/update_company.html'
+    success_url = reverse_lazy('company:list')
 
-    def form_valid(self, form):
-        form.save()
-        return HttpResponseRedirect(reverse('company:list'))
+    # def form_valid(self, form):
+    #     form.save()
+    #     return HttpResponseRedirect(reverse('company:list'))
 
 
 class CompanyLedgerListView(ListView):
@@ -63,16 +65,28 @@ class CompanyLedgerListView(ListView):
         return context
 
 
-class DebitCompanyLedger(FormView):
+class DebitCompanyLedger(CreateView):
     template_name = 'company_ledger/debit.html'
     form_class = CompanyLedgerForm
 
     def form_valid(self, form):
-        obj = form.save()
-        return HttpResponseRedirect(
-            reverse('company:ledger_list', kwargs={'pk': obj.company.id})
+        obj = form.save(commit=False)
+        obj.credit_amount = 0
+        obj.save()
+        self.success_url = reverse_lazy(
+            'company:ledger_list', kwargs={'pk': obj.company.id}
         )
+        return super().form_valid(form)
 
-
-class CreditCompanyLedger(DebitCompanyLedger):
+class CreditCompanyLedger(CreateView):
     template_name = 'company_ledger/credit.html'
+    form_class = CompanyLedgerForm
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.debit_amount = 0
+        obj.save()
+        self.success_url = reverse_lazy(
+            'company:ledger_list', kwargs={'pk': obj.company.id}
+        )
+        return super().form_valid(form)
