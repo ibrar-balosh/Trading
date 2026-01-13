@@ -12,6 +12,12 @@ class CompanyForm(forms.ModelForm):
 
 
 class CompanyLedgerForm(forms.ModelForm):
+    debit_amount = forms.DecimalField(required=False)
+    credit_amount = forms.DecimalField(required=False)
+    
     class Meta:
         model = CompanyLedger
-        fields = '__all__'
+        fields = [
+            'debit_amount', 'credit_amount', 
+            'date', 'details'
+        ]

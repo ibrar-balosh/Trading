@@ -22,7 +22,7 @@
                     <div class="box-body">
                         <form action="{% url 'company:ledger_credit' pk=company.id %}" method="post" autocomplete="off">
                             {% csrf_token %}
-                            <input type="hidden" name="company" value="{{ company.id }}">
+                            <!-- <input type="hidden" name="company" value="{{ company.id }}"> -->
                             <div class="row">
                                 <div class="col-md-12 pull-left form-group">
                                     <label class="form-control-label">Credit Amount <span style="color:red">*</span></label>

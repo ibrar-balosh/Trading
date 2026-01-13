@@ -360,8 +360,10 @@ class InvoiceInstallmentFormView(FormView):
 
 class InvoiceInstallmentDeleteView(DeleteView):
     model = InvoiceInstallment
+    template_name = 'sales/installment_confirm_delete.html'
     success_message = ''
-
+    success_url = reverse_lazy("sales:installment_list")
+    
     def __init__(self, *args, **kwargs):
         super(InvoiceInstallmentDeleteView, self).__init__(*args, **kwargs)
         self.invoice_id = None

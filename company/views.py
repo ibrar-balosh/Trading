@@ -1,5 +1,7 @@
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from company.models import Company, CompanyLedger
 from company.forms import CompanyForm, CompanyLedgerForm
 from django.contrib import messages
@@ -69,24 +71,42 @@ class DebitCompanyLedger(CreateView):
     template_name = 'company_ledger/debit.html'
     form_class = CompanyLedgerForm
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.credit_amount = 0
-        obj.save()
-        self.success_url = reverse_lazy(
-            'company:ledger_list', kwargs={'pk': obj.company.id}
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = get_object_or_404(
+            Company, id=self.kwargs['pk']
         )
-        return super().form_valid(form)
+        return context
+
+    def form_valid(self, form):
+        company = get_object_or_404(Company, id=self.kwargs['pk'])
+        ledger = form.save(commit=False)
+        ledger.company = company
+        ledger.credit_amount = 0
+        ledger.save()
+
+        return HttpResponseRedirect(
+            reverse_lazy('company:ledger_list', kwargs={'pk': company.id})
+        )
 
 class CreditCompanyLedger(CreateView):
     template_name = 'company_ledger/credit.html'
     form_class = CompanyLedgerForm
 
-    def form_valid(self, form):
-        obj = form.save(commit=False)
-        obj.debit_amount = 0
-        obj.save()
-        self.success_url = reverse_lazy(
-            'company:ledger_list', kwargs={'pk': obj.company.id}
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = get_object_or_404(
+            Company, id=self.kwargs['pk']
         )
-        return super().form_valid(form)
+        return context
+
+    def form_valid(self, form):
+        company = get_object_or_404(Company, id=self.kwargs['pk'])
+        ledger = form.save(commit=False)
+        ledger.company = company
+        ledger.debit_amount = 0
+        ledger.save()
+
+        return HttpResponseRedirect(
+            reverse_lazy('company:ledger_list', kwargs={'pk': company.id})
+        )
